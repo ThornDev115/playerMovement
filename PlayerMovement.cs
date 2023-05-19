@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    #region Variables
     //stores the rigidbody class in the unity engine
     public Rigidbody ridgidBody;
 
     public bool grounded = true;
-    
+
     public Rigidbody drag;
-    
+
     public GameObject Player;
 
     public float playerSpeed = 50f;
@@ -20,7 +21,9 @@ public class PlayerMovement : MonoBehaviour
     public bool move = true;
 
     public float theta = -46f;
+    #endregion
 
+    #region Update
     void FixedUpdate()
     {
         Jump();
@@ -29,9 +32,11 @@ public class PlayerMovement : MonoBehaviour
 
         Slide();
     }
+    #endregion
 
+    #region Basic Movement
     void Movement()
-    {      
+    {
         if (Input.GetKey("w") && move)
         {
             if (crouch)
@@ -48,7 +53,7 @@ public class PlayerMovement : MonoBehaviour
         {
             ridgidBody.AddRelativeForce(Vector3.left * playerSpeed, ForceMode.Acceleration);
         }
-        
+
         if (Input.GetKey("s") && move)
         {
             if (crouch)
@@ -66,10 +71,13 @@ public class PlayerMovement : MonoBehaviour
             ridgidBody.AddRelativeForce(Vector3.right * playerSpeed, ForceMode.Acceleration);
         }
     }
+    #endregion
 
+    #region Jump
     void Jump()
     {
-        if (Input.GetKeyDown("space") && grounded)
+
+        if (Input.GetKey("space") && grounded)
         {
             //sets position of player using a rigidbody
             ridgidBody.velocity = new Vector3(ridgidBody.velocity.x, ridgidBody.velocity.y + 10.0f, ridgidBody.velocity.z);
@@ -81,7 +89,7 @@ public class PlayerMovement : MonoBehaviour
         //when you are jumping the drag on the rigidbody goes to 1.5 making you able to jump higher
         if (grounded == false)
         {
-            drag.drag = 1.5f;
+            drag.drag = 2.5f;
         }
         else
         {
@@ -89,7 +97,9 @@ public class PlayerMovement : MonoBehaviour
             drag.drag = 3;
         }
     }
+    #endregion
 
+    #region Slide
     void Slide()
     {
         //Slide
@@ -110,6 +120,7 @@ public class PlayerMovement : MonoBehaviour
             ridgidBody.constraints = RigidbodyConstraints.FreezeRotation;
         }
     }
+    #endregion
 
     private void OnCollisionStay(Collision collision)
     {
