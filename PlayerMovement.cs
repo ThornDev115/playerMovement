@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -90,6 +91,7 @@ public class PlayerMovement : MonoBehaviour
         if (grounded == false)
         {
             drag.drag = 2.5f;
+            ridgidBody.velocity = new Vector3(ridgidBody.velocity.x, ridgidBody.velocity.y - 0.5f, ridgidBody.velocity.z);
         }
         else
         {
